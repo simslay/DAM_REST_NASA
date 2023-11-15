@@ -3,11 +3,11 @@ package com.example.dam_rest_nasa;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,7 +34,20 @@ public class HelloController implements Initializable {
             URL connexionSiteNasaApod = new URL(apodUrl + "?api_key=" + apiKey);
             URLConnection urlConnection = connexionSiteNasaApod.openConnection();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-            
+
+//            String inputLine;
+//
+//
+//            while ((inputLine = bufferedReader.readLine()) != null) {
+//                System.out.println(inputLine);
+//            }
+//            bufferedReader.close();
+
+            JSONTokener jsonTokener = new JSONTokener(bufferedReader);
+            JSONObject jsonObject = new JSONObject(jsonTokener);
+            String objectUrl = (String) jsonObject.get("url");
+
+            System.out.println(objectUrl);
         } catch (MalformedURLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
