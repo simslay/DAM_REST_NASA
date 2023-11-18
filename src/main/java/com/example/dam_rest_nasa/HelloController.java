@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import org.json.JSONObject;
@@ -37,23 +38,20 @@ public class HelloController implements Initializable {
         /** Récupération de donnees Rest sous forme de fichier JSON */
         APOD apod = createAPOD(LocalDate.now());
 
-        ImageView imageView = new ImageView(apod.getUrl());
-
-        imageView.setFitHeight(300);
-        imageView.setFitWidth(300);
+        image.setImage(new Image(apod.getUrl()));
+        image.setFitHeight(300);
+        image.setFitWidth(300);
 
         datePicker.setValue(apod.getDate());
         datePicker.valueProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
             public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
                 APOD apod2 = createAPOD(newValue);
-                ImageView imageView2 = new ImageView(apod2.getUrl());
-                content.getChildren().remove(imageView);
-                content.getChildren().add(imageView2);
+                image.setImage(new Image(apod2.getUrl()));
+                image.setFitHeight(300);
+                image.setFitWidth(300);
             }
         });
-
-        content.getChildren().add(imageView);
     }
 
     private APOD createAPOD(LocalDate date) {
