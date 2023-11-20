@@ -11,5 +11,6 @@
     </padding>
     <Label text="Astronomy Picture Of the Day" />
     <DatePicker fx:id="datePicker" />
+   <Label fx:id="title" />
    <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
 </VBox>
